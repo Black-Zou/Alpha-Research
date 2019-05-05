@@ -122,6 +122,10 @@ class abnormal(object):
             #当变量是G-score时
             hbp = pd.Series([7]*len(df_tab))
             lbp = pd.Series([1]*len(df_tab))
+        elif flag == 'patent':
+            #当变量使用专利数据时
+            hbp = pd.DataFrame(np.where(df_tab_quantile>0, df_tab_quantile, np.nan)).quantile(8/9, axis=1)
+            lbp = pd.Series([0]*len(df_tab))
         h_m = df_tab.sub(hbp.values,axis=0)>=0#筛选long的投资组合
         l_m = df_tab.sub(lbp.values,axis=0)<=0#筛选short的投资组合
         #计算long的收益矩阵
